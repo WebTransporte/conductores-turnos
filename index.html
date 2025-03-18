@@ -5,10 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Próximos Conductores a Viajar</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    table { border-collapse: collapse; width: 50%; }
-    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-    th { background-color: #f2f2f2; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      font-size: 24px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%; /* Cambiado de 50% a 100% para ocupar todo el ancho disponible */
+      max-width: 600px; /* Máximo ancho para pantallas grandes */
+      margin: 0 auto; /* Centrar la tabla */
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      font-size: 16px; /* Tamaño base de fuente */
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Media query para pantallas pequeñas (celulares) */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 18px; /* Reducir el título en móviles */
+      }
+      th, td {
+        font-size: 14px; /* Reducir el texto de la tabla */
+        padding: 6px; /* Reducir el padding para ahorrar espacio */
+      }
+      table {
+        width: 100%; /* Asegurar que ocupe todo el ancho en móviles */
+        max-width: 100%; /* Evitar que se desborde */
+      }
+    }
   </style>
 </head>
 <body>
@@ -24,7 +57,6 @@
   </table>
 
   <script>
-    // Replace with your Web App URL
     const url = "https://script.google.com/macros/s/AKfycbxn2ccGE3-mbGhDc_eiJqvIKcH5xY4YFZXt3HaSa7bj12a6p1SljcJ4r56Q1Xd-AA1V/exec";
 
     fetch(url)
