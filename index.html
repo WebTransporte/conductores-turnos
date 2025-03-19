@@ -8,12 +8,30 @@
     body {
       font-family: Arial, sans-serif;
       margin: 15px;
+      background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: #333;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 0 auto;
     }
     h1 {
-      font-size: 22px;
+      font-size: 26px;
       text-align: center;
+      color: #2c3e50;
     }
     h2 {
+      font-size: 22px;
+      text-align: center;
+      color: #2c3e50;
+    }
+    h3 {
       font-size: 18px;
       margin-top: 25px;
       text-align: center;
@@ -30,13 +48,32 @@
       text-align: left;
       font-size: 15px;
     }
-    th {
-      background-color: #f2f2f2;
+    /* Colores para Vehículos Pesados */
+    #cabezalesTable th {
+      background-color: #3498db; /* Azul claro */
+      color: white;
+    }
+    #cabezalesTable td {
+      background-color: #ecf0f1; /* Gris claro */
+    }
+    /* Colores para Carros Guías */
+    #carroGuiasTable th {
+      background-color: #2ecc71; /* Verde claro */
+      color: white;
+    }
+    #carroGuiasTable td {
+      background-color: #e8f8e9; /* Verde muy claro */
     }
     .error {
       color: red;
       text-align: center;
       margin-top: 20px;
+    }
+    .date {
+      font-size: 14px;
+      text-align: center;
+      margin-top: 20px;
+      color: #555;
     }
 
     /* Media query para pantallas pequeñas (celulares) */
@@ -45,9 +82,12 @@
         margin: 10px;
       }
       h1 {
-        font-size: 18px;
+        font-size: 20px;
       }
       h2 {
+        font-size: 18px;
+      }
+      h3 {
         font-size: 16px;
       }
       th, td {
@@ -58,36 +98,53 @@
         width: 100%;
         max-width: 100%;
       }
+      .container {
+        padding: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Próximos Conductores a Viajar (Vehículos Pesados)</h1>
-  <table id="cabezalesTable">
-    <thead>
-      <tr>
-        <th>Placa</th>
-        <th>Conductor</th>
-      </tr>
-    </thead>
-    <tbody id="cabezalesBody"></tbody>
-  </table>
+  <div class="container">
+    <h1>TURNOS TRANSPORTE ORT</h1>
+    <h2>Próximos Conductores a Viajar (Vehículos Pesados)</h2>
+    <table id="cabezalesTable">
+      <thead>
+        <tr>
+          <th>Placa</th>
+          <th>Conductor</th>
+        </tr>
+      </thead>
+      <tbody id="cabezalesBody"></tbody>
+    </table>
 
-  <h2>Próximos Conductores a Viajar (Carros Guías)</h2>
-  <table id="carroGuiasTable">
-    <thead>
-      <tr>
-        <th>Placa</th>
-        <th>Conductor</th>
-      </tr>
-    </thead>
-    <tbody id="carroGuiasBody"></tbody>
-  </table>
+    <h2>Próximos Conductores a Viajar (Carros Guías)</h2>
+    <table id="carroGuiasTable">
+      <thead>
+        <tr>
+          <th>Placa</th>
+          <th>Conductor</th>
+        </tr>
+      </thead>
+      <tbody id="carroGuiasBody"></tbody>
+    </table>
 
-  <div id="errorMessage" class="error"></div>
+    <div id="dateDisplay" class="date"></div>
+    <div id="errorMessage" class="error"></div>
+  </div>
 
   <script>
-    const url = "https://script.google.com/macros/s/AKfycbxb3DtcIK88y6AhrUeKf3uD2dux55gYaS9xyiK78aomDzXDkmLcn-u5lOVa0krMPL1Y/exec";
+    const url = "https://script.google.com/macros/s/AKfycbyI_HZ4SDiazGqCI75xdScE41t-X350w6GB-UT0N0QoLIhG0BQZLYbEl20axSs4323b/exec";
+
+    // Mostrar la fecha actual
+    const days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    const months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+    const today = new Date();
+    const dayName = days[today.getDay()];
+    const day = today.getDate();
+    const month = months[today.getMonth()];
+    const year = today.getFullYear();
+    document.getElementById("dateDisplay").innerText = `${dayName} ${day} de ${month} del ${year}`;
 
     fetch(url)
       .then(response => {
