@@ -30,11 +30,13 @@
       font-size: 22px;
       text-align: center;
       color: #2c3e50;
+      margin-bottom: 5px; /* Reducir espacio entre h2 y h3 */
     }
     h3 {
       font-size: 18px;
-      margin-top: 25px;
       text-align: center;
+      color: #2c3e50;
+      margin-top: 0; /* Sin margen superior para que esté cerca del h2 */
     }
     table {
       border-collapse: collapse;
@@ -107,7 +109,8 @@
 <body>
   <div class="container">
     <h1>TURNOS TRANSPORTE ORT</h1>
-    <h2>Próximos Conductores a Viajar (Vehículos Pesados)</h2>
+    <h2>Próximos Conductores a Viajar</h2>
+    <h3>(Vehículos Pesados)</h3>
     <table id="cabezalesTable">
       <thead>
         <tr>
@@ -118,7 +121,8 @@
       <tbody id="cabezalesBody"></tbody>
     </table>
 
-    <h2>Próximos Conductores a Viajar (Carros Guías)</h2>
+    <h2>Próximos Conductores a Viajar</h2>
+    <h3>(Carros Guías)</h3>
     <table id="carroGuiasTable">
       <thead>
         <tr>
