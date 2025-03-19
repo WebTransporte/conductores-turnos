@@ -7,31 +7,36 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 15px; /* Reducido para ahorrar espacio en móviles */
+      margin: 15px;
     }
     h1 {
-      font-size: 22px; /* Un poco más pequeño para móviles */
-      text-align: center; /* Centrado para mejor estética */
+      font-size: 22px;
+      text-align: center;
     }
     h2 {
-      font-size: 18px; /* Subtítulo más pequeño */
+      font-size: 18px;
       margin-top: 25px;
       text-align: center;
     }
     table {
       border-collapse: collapse;
       width: 100%;
-      max-width: 500px; /* Reducido para que no se vea demasiado ancho */
+      max-width: 500px;
       margin: 0 auto;
     }
     th, td {
       border: 1px solid #ddd;
-      padding: 6px; /* Reducido para ahorrar espacio */
+      padding: 6px;
       text-align: left;
-      font-size: 15px; /* Tamaño base más pequeño */
+      font-size: 15px;
     }
     th {
       background-color: #f2f2f2;
+    }
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 20px;
     }
 
     /* Media query para pantallas pequeñas (celulares) */
@@ -40,13 +45,13 @@
         margin: 10px;
       }
       h1 {
-        font-size: 18px; /* Más pequeño en móviles */
+        font-size: 18px;
       }
       h2 {
         font-size: 16px;
       }
       th, td {
-        font-size: 13px; /* Texto más pequeño en móviles */
+        font-size: 13px;
         padding: 5px;
       }
       table {
@@ -79,11 +84,18 @@
     <tbody id="carroGuiasBody"></tbody>
   </table>
 
+  <div id="errorMessage" class="error"></div>
+
   <script>
     const url = "https://script.google.com/macros/s/AKfycbxb3DtcIK88y6AhrUeKf3uD2dux55gYaS9xyiK78aomDzXDkmLcn-u5lOVa0krMPL1Y/exec";
 
     fetch(url)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos: " + response.status);
+        }
+        return response.json();
+      })
       .then(data => {
         // Llenar tabla de CABEZALES
         const cabezalesBody = document.getElementById("cabezalesBody");
@@ -101,7 +113,10 @@
           carroGuiasBody.appendChild(row);
         });
       })
-      .catch(error => console.error("Error fetching data:", error));
+      .catch(error => {
+        console.error("Error fetching data:", error);
+        document.getElementById("errorMessage").innerText = "No se pudieron cargar los datos. Por favor, intenta de nuevo más tarde.";
+      });
   </script>
 </body>
 </html>
