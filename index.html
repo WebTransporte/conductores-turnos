@@ -7,22 +7,28 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
+      margin: 15px; /* Reducido para ahorrar espacio en móviles */
     }
     h1 {
-      font-size: 24px;
+      font-size: 22px; /* Un poco más pequeño para móviles */
+      text-align: center; /* Centrado para mejor estética */
+    }
+    h2 {
+      font-size: 18px; /* Subtítulo más pequeño */
+      margin-top: 25px;
+      text-align: center;
     }
     table {
       border-collapse: collapse;
-      width: 100%; /* Cambiado de 50% a 100% para ocupar todo el ancho disponible */
-      max-width: 600px; /* Máximo ancho para pantallas grandes */
-      margin: 0 auto; /* Centrar la tabla */
+      width: 100%;
+      max-width: 500px; /* Reducido para que no se vea demasiado ancho */
+      margin: 0 auto;
     }
     th, td {
       border: 1px solid #ddd;
-      padding: 8px;
+      padding: 6px; /* Reducido para ahorrar espacio */
       text-align: left;
-      font-size: 16px; /* Tamaño base de fuente */
+      font-size: 15px; /* Tamaño base más pequeño */
     }
     th {
       background-color: #f2f2f2;
@@ -30,30 +36,47 @@
 
     /* Media query para pantallas pequeñas (celulares) */
     @media (max-width: 600px) {
+      body {
+        margin: 10px;
+      }
       h1 {
-        font-size: 18px; /* Reducir el título en móviles */
+        font-size: 18px; /* Más pequeño en móviles */
+      }
+      h2 {
+        font-size: 16px;
       }
       th, td {
-        font-size: 14px; /* Reducir el texto de la tabla */
-        padding: 6px; /* Reducir el padding para ahorrar espacio */
+        font-size: 13px; /* Texto más pequeño en móviles */
+        padding: 5px;
       }
       table {
-        width: 100%; /* Asegurar que ocupe todo el ancho en móviles */
-        max-width: 100%; /* Evitar que se desborde */
+        width: 100%;
+        max-width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Próximos Conductores a Viajar (Top 10)</h1>
-  <table id="driversTable">
+  <h1>Próximos Conductores a Viajar (Vehículos Pesados)</h1>
+  <table id="cabezalesTable">
     <thead>
       <tr>
         <th>Placa</th>
         <th>Conductor</th>
       </tr>
     </thead>
-    <tbody id="driversBody"></tbody>
+    <tbody id="cabezalesBody"></tbody>
+  </table>
+
+  <h2>Próximos Conductores a Viajar (Carros Guías)</h2>
+  <table id="carroGuiasTable">
+    <thead>
+      <tr>
+        <th>Placa</th>
+        <th>Conductor</th>
+      </tr>
+    </thead>
+    <tbody id="carroGuiasBody"></tbody>
   </table>
 
   <script>
@@ -62,11 +85,20 @@
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        const tbody = document.getElementById("driversBody");
-        data.forEach(driver => {
+        // Llenar tabla de CABEZALES
+        const cabezalesBody = document.getElementById("cabezalesBody");
+        data.cabezales.forEach(driver => {
           const row = document.createElement("tr");
           row.innerHTML = `<td>${driver.placa}</td><td>${driver.conductor}</td>`;
-          tbody.appendChild(row);
+          cabezalesBody.appendChild(row);
+        });
+
+        // Llenar tabla de CARRO GUIAS
+        const carroGuiasBody = document.getElementById("carroGuiasBody");
+        data.carroGuias.forEach(driver => {
+          const row = document.createElement("tr");
+          row.innerHTML = `<td>${driver.placa}</td><td>${driver.conductor}</td>`;
+          carroGuiasBody.appendChild(row);
         });
       })
       .catch(error => console.error("Error fetching data:", error));
